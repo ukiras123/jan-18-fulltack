@@ -1,0 +1,22 @@
+const express = require('express');
+const { todoRouter } = require('./src/routes/todo');
+// import express from 'express'
+const { mongoConnect } = require('./src/dbConfig/mongoConnect.js')
+const app = express();
+mongoConnect();
+const PORT = 3000;
+// Middleware
+app.use(express.json())
+app.use("/api/v1/todo", todoRouter)
+
+
+app.use('/', (req, res) => {
+    // DO something
+    res.json({
+        status: "I am healthy"
+    })
+})
+
+app.listen(PORT, () => {
+    console.log(`I am running in http:localhost:${PORT}`)
+})
